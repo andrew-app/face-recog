@@ -7,7 +7,7 @@ class faceLM:
     
     
     def __init__(self,pic):
-        #Define empty lists to store lm for x and y coordinates
+        #Define empty lists to store landmarks for x and y coordinates
         xpoints = [0] * 68
         ypoints = [0] * 68
         #import dlib tools
@@ -21,7 +21,7 @@ class faceLM:
         faces = detect(gray)
        #landmark prediction
         for face in faces:
-            landmark = predict(gray,face)
+            landmark = predict(gray, face)
         #get coordinates of each x and y in landmark data and store in respective list
         for i in range(0,68):
             x = landmark.part(i).x
@@ -41,13 +41,26 @@ class faceLM:
         
             
 
-cap = "F:\OpenCV\FaceLM\keanu1.jpg"
 
-a = faceLM(cap)
+import os
 
-b = faceLM.x(a)
+path = 'F:\\OpenCV\\FaceLM\\rename_img\\images\\'
 
-c = faceLM.y(a)
-print(c)    
+files = []
+# r=root, d=directories, f = files
+for r, d, f in os.walk(path): #Generate the file names in a directory tree by walking the tree either top-down or bottom-up
+    for file in f: #read files that are in folder
+        print(file)
+        if '.jpg' in file: #only care about jpg
+            files.append(os.path.join(r, file))
+print(files)
+
+
+for i in range(0,4):
+    a = faceLM(files[i])
+
+    b = faceLM.x(a)
+
+    print(b)
         
 
